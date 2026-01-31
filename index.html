@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Responsive Circular Clock</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="clock-wrapper">
+        <div class="clock-scaler">
+            <div class="clock-container">
+                <!-- Visual background circles -->
+                <div class="ring-bg day-bg"></div>
+                <div class="ring-bg month-bg"></div>
+                <div class="ring-bg dow-bg"></div>
+
+                <!-- Rotating text layers -->
+                <div id="day-ring" class="ring"></div>
+                <div id="month-ring" class="ring"></div>
+                <div id="dow-ring" class="ring"></div>
+
+                <!-- Analog Clock Face -->
+                <div class="analog-face" id="analog-face">
+                    <div id="hour" class="hand"></div>
+                    <div id="minute" class="hand"></div>
+                    <div id="second" class="hand"></div>
+                    <div class="center-dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

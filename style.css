@@ -1,0 +1,125 @@
+:root {
+    --green: #4CAF50; --blue: #2196F3; --red: #F44336;
+    --bg: #424242; --text-dim: #bcbcbc;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --hand-color: #f0f0f0;
+}
+
+/* Reset and absolute centering */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg);
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* The wrapper handles the viewport fitting */
+.clock-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* The scaler handles the shrinkage */
+.clock-scaler {
+    /* Scale based on mobile width or height, max 1.0 */
+    --scale: clamp(0.3, min(90vw / 650, 90vh / 650), 1);
+    transform: scale(var(--scale));
+    transform-origin: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container set to 0px so it cannot overflow the viewport */
+.clock-container { 
+    position: relative; 
+    width: 0; 
+    height: 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Background Circles */
+.ring-bg {
+    position: absolute;
+    border-radius: 50%; border: 1px solid var(--border-color);
+    box-shadow: 0 0 15px var(--shadow-color), inset 0 0 15px rgba(0,0,0,0.2);
+    /* No translate needed because parent is flex-centered 0x0 */
+}
+.day-bg { width: 440px; height: 440px; }
+.month-bg { width: 380px; height: 380px; }
+.dow-bg { width: 320px; height: 320px; }
+
+/* Rotating Rings */
+.ring {
+    position: absolute;
+    width: 0; height: 0;
+    transform: rotate(0deg); 
+    transition: transform 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ring-item { position: absolute; transform-origin: center center; }
+.ring-item span {
+    position: absolute; bottom: 0; left: 50%;
+    transform-origin: center bottom; color: var(--text-dim);
+    transition: color 0.5s, text-shadow 0.5s;
+    text-transform: uppercase; font-weight: bold;
+}
+
+#day-ring span { height: 210px; font-size: 13px; }
+#month-ring span { height: 180px; font-size: 14px; }
+#dow-ring span { height: 150px; font-size: 15px; }
+
+.active-day span { color: var(--red) !important; text-shadow: 0 0 8px var(--red); }
+.active-month span { color: var(--blue) !important; text-shadow: 0 0 8px var(--blue); }
+.active-dow span { color: var(--green) !important; text-shadow: 0 0 8px var(--green); }
+
+/* Analog Face */
+.analog-face {
+    position: absolute; width: 240px; height: 240px;
+    background: radial-gradient(circle, #4a4a4a, #424242);
+    border: 1px solid #555; border-radius: 50%; z-index: 10;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hour-num {
+    position: absolute; width: 30px; height: 30px;
+    text-align: center; color: var(--text-dim); font-weight: bold;
+}
+
+.hand { 
+    position: absolute; bottom: 50%; 
+    transform-origin: bottom center; background: var(--hand-color); border-radius: 4px;
+    transform: rotate(0deg);
+    transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#hour { width: 6px; height: 60px; }
+#minute { width: 4px; height: 90px; }
+#second { width: 2px; height: 105px; }
+#second::after {
+    content: ''; position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%);
+    width: 6px; height: 15px; background: var(--red); border-radius: 3px;
+}
+.center-dot { position: absolute; width: 12px; height: 12px; background: #fff; border-radius: 50%; z-index: 12; }
