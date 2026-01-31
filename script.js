@@ -38,6 +38,21 @@ function addArabicNumerals() {
     }
 }
 
+function add24HourNumerals() {
+    const face = document.querySelector('.analog-face');
+    for (let i = 13; i <= 24; i++) {
+        const num = document.createElement('div');
+        num.className = 'hour-num-24';
+        num.innerText = i;
+        const angle = ((i - 12) * 30) - 90;
+        const radius = 50; 
+        const x = Math.cos(angle * (Math.PI / 180)) * radius;
+        const y = Math.sin(angle * (Math.PI / 180)) * radius;
+        num.style.transform = `translate(${x}px, ${y}px)`;
+        face.appendChild(num);
+    }
+}
+
 function updateCalendarRings() {
     const now = new Date();
     syncRing('day-ring', now.getDate() - 1, 31, 'active-day');
@@ -68,6 +83,7 @@ function updateHands() {
 
 document.addEventListener('DOMContentLoaded', () => {
     addArabicNumerals();
+    add24HourNumerals();
     buildArchedRing('day-ring', daysArr);
     buildArchedRing('month-ring', monthsArr);
     buildArchedRing('dow-ring', dowsArr);
